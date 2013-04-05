@@ -1,0 +1,22 @@
+/* app css stylesheet */
+
+body {
+  background: #B3D9F2;
+  margin:0;
+  padding:0;
+  height:100%;
+}
+
+.user_info {
+  margin: 10px;
+  float: right;
+}
+
+#footer {
+   position:absolute;
+   bottom:0;
+   /* height:60px; */
+   width: 100%;
+   background: #A3C9E2;
+   font-style: italic;
+}
