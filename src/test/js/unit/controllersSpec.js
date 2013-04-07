@@ -18,15 +18,228 @@
 
 /* jasmine specs for controllers go here */
 
-describe('GuestbookCtrl', function() {
+describe('GuestbookCtrl initialization', function() {
   var scope, ctrl, $httpBackend;
   beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
     $httpBackend = _$httpBackend_;
-    $httpBackend.expectGET('/guestbook').
-    respond({});
+    $httpBackend.expectGET('/rest/guestbook/default').
+        respond(200, {
+          'greetings': [
+            {
+              'content': 'a message on the default guestbook',
+              'date': 'Apr 6, 2013 7:28:22 PM',
+              'author': 'test@example.com'
+            },
+            {
+              'content': 'a second message on the default guestbook',
+              'date': 'Apr 6, 2013 12:00:00 PM',
+              'author': 'another@example.com'
+            }
+          ],
+          'guestbookName': 'default',
+          'userServiceInfo': {
+            'currentUser': {
+              'authDomain': 'gmail.com',
+              'email': 'test@example.com',
+              'userid': '18580476422013912411'
+            },
+            'loginUrl': '/_ah/login?continue=%2F',
+            'logoutUrl': '/_ah/logout?continue=%2F'
+          }
+        });
+        $httpBackend.whenPOST(
+            '/rest/guestbook/other',
+            {'content': 'A new message on the other guestbook'})
+        .respond(200, {
+          'greetings': [
+            {
+              'content': 'A new message on the other guestbook',
+              'date': 'Apr 6, 2013 7:28:22 PM',
+              'author': 'test@example.com'
+            },
+            {
+              'content': 'a second message on the other guestbook',
+              'date': 'Apr 6, 2013 12:00:00 PM',
+              'author': 'another@example.com'
+            }
+          ],
+          'guestbookName': 'other',
+          'userServiceInfo': {
+            'currentUser': {
+              'authDomain': 'gmail.com',
+              'email': 'test@example.com',
+              'userid': '18580476422013912411'
+            },
+            'loginUrl': '/_ah/login?continue=%2F',
+            'logoutUrl': '/_ah/logout?continue=%2F'
+          }
+        });
     scope = $rootScope.$new();
     ctrl = $controller(GuestbookCtrl, {$scope: scope});
   }));
-  // TODO: Write tests
+
+  it('should create "greetings", "guestbookName", and "userServiceInfo" models', function() {
+    expect(scope.greetings).toBeUndefined();
+    expect(scope.userServiceInfo).toBeUndefined();
+    expect(scope.guestbookName).toEqual('default');
+    $httpBackend.flush();
+    expect(scope.greetings).toEqual([
+      {
+        'content': 'a message on the default guestbook',
+        'date': 'Apr 6, 2013 7:28:22 PM',
+        'author': 'test@example.com'
+      },
+      {
+        'content': 'a second message on the default guestbook',
+        'date': 'Apr 6, 2013 12:00:00 PM',
+        'author': 'another@example.com'
+      }
+    ]);
+    expect(scope.guestbookName).toEqual('default');
+    expect(scope.userServiceInfo).toEqual(
+        {
+          currentUser: {
+            authDomain: 'gmail.com',
+            email: 'test@example.com',
+            userid: '18580476422013912411'
+          },
+          loginUrl: '/_ah/login?continue=%2F',
+          logoutUrl: '/_ah/logout?continue=%2F'
+        });
+  })
+});
+
+describe('GuestbookCtrl submit_form', function() {
+  var scope, ctrl, $httpBackend;
+  beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+    $httpBackend = _$httpBackend_;
+    $httpBackend.whenGET('/rest/guestbook/default').
+        respond(200, {
+          'greetings': [
+            {
+              'content': 'a message on the default guestbook',
+              'date': 'Apr 6, 2013 7:28:22 PM',
+              'author': 'test@example.com'
+            }
+          ],
+          'guestbookName': 'default',
+          'userServiceInfo': {
+            'currentUser': {
+              'authDomain': 'gmail.com',
+              'email': 'test@example.com',
+              'userid': '18580476422013912411'
+            },
+            'loginUrl': '/_ah/login?continue=%2F',
+            'logoutUrl': '/_ah/logout?continue=%2F'
+          }
+        });
+    scope = $rootScope.$new();
+    ctrl = $controller(GuestbookCtrl, {$scope: scope});
+  }));
+
+  it('should post to the "/rest/guestbook/other"', function() {
+    // need to flush for the controller initialization
+    $httpBackend.flush();
+    $httpBackend.expectPOST(
+        '/rest/guestbook/other',
+        {'content': 'A new message on the other guestbook'})
+        .respond(200, {
+          'greetings': [
+            {
+              'content': 'A new message on the other guestbook',
+              'date': 'Apr 6, 2013 7:28:22 PM',
+              'author': 'test@example.com'
+            },
+            {
+              'content': 'a second message on the other guestbook',
+              'date': 'Apr 6, 2013 12:00:00 PM',
+              'author': 'another@example.com'
+            }
+          ],
+          'guestbookName': 'other',
+        });
+    scope.guestbookName = 'other';
+    scope.content = 'A new message on the other guestbook'
+    scope.submit_form();
+    $httpBackend.flush();
+    expect(scope.greetings).toEqual([
+      {
+        'content': 'A new message on the other guestbook',
+        'date': 'Apr 6, 2013 7:28:22 PM',
+        'author': 'test@example.com'
+      },
+      {
+        'content': 'a second message on the other guestbook',
+        'date': 'Apr 6, 2013 12:00:00 PM',
+        'author': 'another@example.com'
+      }
+    ]);
+    expect(scope.guestbookName).toEqual('other');
+  })
+});
+
+describe('GuestbookCtrl with a URL contains guestbook name', function() {
+  var scope, ctrl, $httpBackend;
+  beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, $location) {
+    $location.path('/other');
+    $httpBackend = _$httpBackend_;
+    $httpBackend.expectGET('/rest/guestbook/other').
+        respond({
+          'greetings': [
+            {
+              'content': 'a message on the other guestbook',
+              'date': 'Apr 6, 2013 7:28:22 PM',
+              'author': 'test@example.com'
+            },
+            {
+              'content': 'a second message on the other guestbook',
+              'date': 'Apr 6, 2013 12:00:00 PM',
+              'author': 'another@example.com'
+            }
+          ],
+          'guestbookName': 'other',
+          'userServiceInfo': {
+            'currentUser': {
+              'authDomain': 'gmail.com',
+              'email': 'test@example.com',
+              'userid': '18580476422013912411'
+            },
+            'loginUrl': '/_ah/login?continue=%2F',
+            'logoutUrl': '/_ah/logout?continue=%2F'
+          }
+        });
+    scope = $rootScope.$new();
+    ctrl = $controller(GuestbookCtrl, {$scope: scope});
+  }));
+
+  it('should retrieve data for "other" guestbook if $location.path() is "/other"', function() {
+    expect(scope.greetings).toBeUndefined();
+    expect(scope.userServiceInfo).toBeUndefined();
+    expect(scope.guestbookName).toEqual('other');
+    $httpBackend.flush();
+    expect(scope.greetings).toEqual([
+      {
+        'content': 'a message on the other guestbook',
+        'date': 'Apr 6, 2013 7:28:22 PM',
+        'author': 'test@example.com'
+      },
+      {
+        'content': 'a second message on the other guestbook',
+        'date': 'Apr 6, 2013 12:00:00 PM',
+        'author': 'another@example.com'
+      }
+    ]);
+    expect(scope.guestbookName).toEqual('other');
+    expect(scope.userServiceInfo).toEqual(
+        {
+          currentUser: {
+            authDomain: 'gmail.com',
+            email: 'test@example.com',
+            userid: '18580476422013912411'
+          },
+          loginUrl: '/_ah/login?continue=%2F',
+          logoutUrl: '/_ah/logout?continue=%2F'
+        });
+  })
 });
 

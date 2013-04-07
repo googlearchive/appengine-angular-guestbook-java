@@ -45,12 +45,10 @@ var GuestbookCtrl = ['$scope', '$http', '$location', function ($scope, $http, $l
   }
 
   function updatePath(guestbookName) {
-    if (getGuestbookNameFromPath() != guestbookName) {
-      $location.path('/' + guestbookName).replace();
-    }
+    $location.path('/' + guestbookName).replace();
   }
 
-  $scope.submit_form = function () {
+  $scope.submit_form = function() {
     $http.post(
         '/rest/guestbook/' + encodeURIComponent($scope.guestbookName),
         {'content': $scope.content})
@@ -60,6 +58,6 @@ var GuestbookCtrl = ['$scope', '$http', '$location', function ($scope, $http, $l
           $scope.greetings = data.greetings;
           updatePath($scope.guestbookName);
         })
-  }
+  };
 
 }];
