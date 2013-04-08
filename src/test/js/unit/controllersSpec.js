@@ -156,7 +156,7 @@ describe('GuestbookCtrl submit_form', function() {
               'author': 'another@example.com'
             }
           ],
-          'guestbookName': 'other',
+          'guestbookName': 'other'
         });
     scope.guestbookName = 'other';
     scope.content = 'A new message on the other guestbook'

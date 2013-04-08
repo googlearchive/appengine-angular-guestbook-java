@@ -45,4 +45,16 @@ public class UserServiceInfo {
     this.loginUrl = loginUrl;
     this.logoutUrl = logoutUrl;
   }
+
+  public User getCurrentUser() {
+    return currentUser;
+  }
+
+  public String getLoginUrl() {
+    return loginUrl;
+  }
+
+  public String getLogoutUrl() {
+    return logoutUrl;
+  }
 }

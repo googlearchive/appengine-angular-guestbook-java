@@ -52,4 +52,16 @@ public class Greeting {
     this.date = date;
     this.author = author;
   }
+
+  public String getContent() {
+    return content;
+  }
+
+  public Date getDate() {
+    return date;
+  }
+
+  public String getAuthor() {
+    return author;
+  }
 }

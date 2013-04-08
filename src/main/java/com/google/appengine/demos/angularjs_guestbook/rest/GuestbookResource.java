@@ -20,6 +20,7 @@ import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.demos.angularjs_guestbook.domain.Greeting;
+import com.google.appengine.demos.angularjs_guestbook.domain.GuestbookResponse;
 import com.google.appengine.demos.angularjs_guestbook.domain.UserServiceInfo;
 
 import javax.ws.rs.*;
@@ -56,20 +57,19 @@ public class GuestbookResource {
   @GET
   @Path("/{guestbookName}")
   @Produces(MediaType.APPLICATION_JSON)
-  public Map<String, Object> getGuestbookData(
-      @DefaultValue("default") @PathParam("guestbookName") final String guestbookName) {
-    Map<String, Object> guestbookData = new HashMap<String, Object>();
-    guestbookData.put("userServiceInfo", UserServiceInfo.get("/"));
-    guestbookData.put("guestbookName", guestbookName);
-    guestbookData.put("greetings", getGreetings(guestbookName));
-    return guestbookData;
+  public GuestbookResponse getGuestbookData(
+      @DefaultValue("default") @PathParam("guestbookName") final String guestbookName) throws
+      Exception {
+    GuestbookResponse guestbookResponse = new GuestbookResponse(
+        guestbookName, getGreetings(guestbookName), UserServiceInfo.get("/"));
+    return guestbookResponse;
   }
 
   @POST
   @Path("/{guestbookName}")
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
-  public Map<String, Object> signGuestbook(
+  public GuestbookResponse signGuestbook(
       @DefaultValue("default") @PathParam("guestbookName") final String guestbookName,
       final Map<String, String> postData) {
     UserService userService = UserServiceFactory.getUserService();
@@ -85,9 +85,8 @@ public class GuestbookResource {
       datastoreService.put(greeting);
     }
 
-    Map<String, Object> guestbookData = new HashMap<String, Object>();
-    guestbookData.put("guestbookName", guestbookName);
-    guestbookData.put("greetings", getGreetings(guestbookName));
-    return guestbookData;
+    GuestbookResponse guestbookResponse = new GuestbookResponse(guestbookName,
+        getGreetings(guestbookName), null);
+    return guestbookResponse;
   }
 }
