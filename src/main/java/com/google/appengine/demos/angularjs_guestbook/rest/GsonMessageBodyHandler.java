@@ -30,12 +30,15 @@ import javax.ws.rs.ext.Provider;
 import java.io.*;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.util.logging.Logger;
 
 @Provider
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public final class GsonMessageBodyHandler implements MessageBodyWriter<Object>,
     MessageBodyReader<Object> {
+
+  private Logger logger = Logger.getLogger(GsonMessageBodyHandler.class.getName());
 
   private static final String UTF_8 = "UTF-8";
 
@@ -82,15 +85,26 @@ public final class GsonMessageBodyHandler implements MessageBodyWriter<Object>,
   @Override
   public long getSize(Object object, Class<?> type, Type genericType, Annotation[] annotations,
                       MediaType mediaType) {
-    return -1;
+    Type jsonType;
+    if (type.equals(genericType)) {
+      jsonType = type;
+    } else {
+      jsonType = genericType;
+    }
+    try {
+      return getGson().toJson(object, jsonType).getBytes(UTF_8).length;
+    } catch (UnsupportedEncodingException e) {
+      logger.fine(e.toString());
+      // -1 indicates that the length could not be determined in advance.
+      return -1;
+    }
   }
 
   @Override
   public void writeTo(Object object, Class<?> type, Type genericType, Annotation[] annotations,
                       MediaType mediaType, MultivaluedMap<String, Object> httpHeaders,
                       OutputStream entityStream) throws IOException, WebApplicationException {
-    OutputStreamWriter writer = new OutputStreamWriter(entityStream, UTF_8);
-    try {
+    try (OutputStreamWriter writer = new OutputStreamWriter(entityStream, UTF_8)) {
       Type jsonType;
       if (type.equals(genericType)) {
         jsonType = type;
@@ -98,8 +112,6 @@ public final class GsonMessageBodyHandler implements MessageBodyWriter<Object>,
         jsonType = genericType;
       }
       getGson().toJson(object, jsonType, writer);
-    } finally {
-      writer.close();
     }
   }
 }

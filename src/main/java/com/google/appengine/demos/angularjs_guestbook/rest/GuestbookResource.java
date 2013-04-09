@@ -75,6 +75,9 @@ public class GuestbookResource {
     UserService userService = UserServiceFactory.getUserService();
     DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
     Key guestbookKey = KeyFactory.createKey("Guestbook", guestbookName);
+    // We set the above parent key on each Greeting entity in order to make the queries strong
+    // consistent. Please Note that as a trade off, we can not write to a single guestbook at a
+    // rate more than 1 write/second.
     String content = postData.get("content");
     if (content != null && content.length() > 0) {
       Date date = new Date();
