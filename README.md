@@ -8,8 +8,12 @@ Author: Takashi Matsuo <tmatsuo@google.com>
 
 ## Project Setup
 Install [Apache Maven][1] and [Karma][2] if you haven't. See the links
-for install instructions. To run the app locally, run the following
-command:
+for install instructions. Update the `angular-seed` submodule with the
+following command:
+
+> $ git submodule update --init
+
+To run the app locally, run the following command:
 
 > $ mvn appengine:devserver
 
