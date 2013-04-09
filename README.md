@@ -26,6 +26,9 @@ command:
   After launching the devserver, run the following:
   > $ scripts/e2e-test.[sh|bat]
 
+Note: If you want to debug the Java Unit Tests, add `-DforkMode=never`
+VM Option to your IDE's debug configuration.
+
 ### How to deploy
 To deploy the app, change the value of the `application` element in
 your `src/main/webapp/WEB-INF/appengine-web.xml` and run the following
