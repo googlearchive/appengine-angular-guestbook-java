@@ -7,6 +7,12 @@ files = [
     'src/main/webapp/js/**/*.js',
 ];
 
+// web server port
+port = 7070;
+
+// cli runner port
+runnerPort = 7100;
+
 autoWatch = true;
 
 // Start these browsers, currently available:

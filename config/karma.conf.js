@@ -10,6 +10,12 @@ files = [
     'src/test/js/unit/**/*.js'
 ];
 
+// web server port
+port = 6060;
+
+// cli runner port
+runnerPort = 6100;
+
 autoWatch = true;
 
 // Start these browsers, currently available:
