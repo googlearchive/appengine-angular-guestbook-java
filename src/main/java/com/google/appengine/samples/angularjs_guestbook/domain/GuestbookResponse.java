@@ -1,4 +1,4 @@
-package com.google.appengine.demos.angularjs_guestbook.domain;
+package com.google.appengine.samples.angularjs_guestbook.domain;
 
 import java.util.List;
 

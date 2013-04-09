@@ -40,7 +40,7 @@
     -->
     <init-param>
       <param-name>javax.ws.rs.Application</param-name>
-      <param-value>com.google.appengine.demos.angularjs_guestbook.config.Resources</param-value>
+      <param-value>com.google.appengine.samples.angularjs_guestbook.config.Resources</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>

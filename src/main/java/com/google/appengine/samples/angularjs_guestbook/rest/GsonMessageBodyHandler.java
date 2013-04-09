@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.appengine.demos.angularjs_guestbook.rest;
+package com.google.appengine.samples.angularjs_guestbook.rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

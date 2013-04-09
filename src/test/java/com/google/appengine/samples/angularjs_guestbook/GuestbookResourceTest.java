@@ -1,14 +1,14 @@
-package com.google.appengine.demos.angularjs_guestbook;
+package com.google.appengine.samples.angularjs_guestbook;
 
-import static com.google.appengine.demos.angularjs_guestbook.TestUtil.getMockedJsonRequest;
-import static com.google.appengine.demos.angularjs_guestbook.TestUtil.getMockedServletResponse;
+import static com.google.appengine.samples.angularjs_guestbook.TestUtil.getMockedJsonRequest;
+import static com.google.appengine.samples.angularjs_guestbook.TestUtil.getMockedServletResponse;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.mockito.Mockito.*;
 
-import com.google.appengine.demos.angularjs_guestbook.config.Resources;
-import com.google.appengine.demos.angularjs_guestbook.domain.Greeting;
-import com.google.appengine.demos.angularjs_guestbook.domain.GuestbookResponse;
+import com.google.appengine.samples.angularjs_guestbook.config.Resources;
+import com.google.appengine.samples.angularjs_guestbook.domain.Greeting;
+import com.google.appengine.samples.angularjs_guestbook.domain.GuestbookResponse;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.google.appengine.tools.development.testing.LocalUserServiceTestConfig;

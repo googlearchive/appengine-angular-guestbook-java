@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.appengine.demos.angularjs_guestbook.domain;
+package com.google.appengine.samples.angularjs_guestbook.domain;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.users.User;

@@ -1,4 +1,4 @@
-package com.google.appengine.demos.angularjs_guestbook;
+package com.google.appengine.samples.angularjs_guestbook;
 
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;

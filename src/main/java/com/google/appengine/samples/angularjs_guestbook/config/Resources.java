@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.appengine.demos.angularjs_guestbook.config;
+package com.google.appengine.samples.angularjs_guestbook.config;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,8 +22,8 @@ package com.google.appengine.demos.angularjs_guestbook.config;
  * Date: 4/5/13
  * Time: 2:57 AM
  */
-import com.google.appengine.demos.angularjs_guestbook.rest.GsonMessageBodyHandler;
-import com.google.appengine.demos.angularjs_guestbook.rest.GuestbookResource;
+import com.google.appengine.samples.angularjs_guestbook.rest.GsonMessageBodyHandler;
+import com.google.appengine.samples.angularjs_guestbook.rest.GuestbookResource;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.google.appengine.demos.angularjs_guestbook.rest;
+package com.google.appengine.samples.angularjs_guestbook.rest;
 
 import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-import com.google.appengine.demos.angularjs_guestbook.domain.Greeting;
-import com.google.appengine.demos.angularjs_guestbook.domain.GuestbookResponse;
-import com.google.appengine.demos.angularjs_guestbook.domain.UserServiceInfo;
+import com.google.appengine.samples.angularjs_guestbook.domain.Greeting;
+import com.google.appengine.samples.angularjs_guestbook.domain.GuestbookResponse;
+import com.google.appengine.samples.angularjs_guestbook.domain.UserServiceInfo;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
