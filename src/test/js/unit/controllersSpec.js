@@ -112,7 +112,8 @@ describe('GuestbookCtrl initialization', function() {
 
 describe('GuestbookCtrl submit_form', function() {
   var scope, ctrl, $httpBackend;
-  beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+  beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, $routeParams) {
+    $routeParams.guestbookName = 'default';
     $httpBackend = _$httpBackend_;
     $httpBackend.whenGET('/rest/guestbook/default').
         respond(200, {
