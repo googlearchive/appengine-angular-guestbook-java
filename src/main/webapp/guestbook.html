@@ -1,0 +1,39 @@
+<span class="user_info">
+  <span ng-show="userServiceInfo" style="display: none;">
+    <span ng-show="userServiceInfo.currentUser">
+      Hi {{ userServiceInfo.currentUser.email }}
+      <a ng-href="{{ userServiceInfo.logoutUrl }}">Logout</a>
+    </span>
+    <span ng-hide="userServiceInfo.currentUser">
+      <a ng-href="{{ userServiceInfo.loginUrl }}">Login</a>
+    </span>
+  </span>
+  <span ng-hide="userServiceInfo">
+    <img src="/img/ajax-loader.gif">
+    Retrieving the user information...
+  </span>
+</span>
+
+<h2>Showing the guestbook: {{ currentGuestbookName }}</h2>
+<div>
+  <p>
+  <form ng-submit="submit_form()">
+    Message:<br>
+    <textarea name="content" rows="5" cols="100" ng-model="content"></textarea><br>
+    Guestbook Name:
+    <input type="text" name="guestbookName" ng-model="guestbookName"><br>
+    <input type="submit" value="Submit" name="submit">
+  </form>
+  </p>
+</div>
+
+<span ng-hide="!!greetings">
+  <img src="/img/ajax-loader.gif">
+  Retrieving the data...
+</span>
+<ul ng-show="greetings" style="display: none;">
+  <li ng-repeat="greeting in greetings">
+    <span ng-bind-html="greeting.content | nl2br"></span>
+    at {{ greeting.date }} by {{ greeting.author }}
+  </li>
+</ul>

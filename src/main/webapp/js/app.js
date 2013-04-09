@@ -18,5 +18,16 @@
 
 // Declare app level module which depends on filters, and services
 angular.module('guestbook', [
-    'guestbook.filters', 'guestbook.services', 'guestbook.directives', 'ngSanitize', 'ngCookies'
-]);
+  'guestbook.filters',
+  'guestbook.services',
+  'guestbook.directives',
+  'ngSanitize'
+])
+.config(['$routeProvider', function($routeProvider) {
+  $routeProvider
+  .when('/:guestbookName', {
+    controller: 'GuestbookCtrl',
+    templateUrl: 'guestbook.html'
+  })
+  .otherwise({ redirectTo: '/default' });
+}]);

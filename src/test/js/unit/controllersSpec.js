@@ -20,7 +20,8 @@
 
 describe('GuestbookCtrl initialization', function() {
   var scope, ctrl, $httpBackend;
-  beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+  beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, $routeParams) {
+    $routeParams.guestbookName = 'default';
     $httpBackend = _$httpBackend_;
     $httpBackend.expectGET('/rest/guestbook/default').
         respond(200, {
@@ -180,8 +181,8 @@ describe('GuestbookCtrl submit_form', function() {
 
 describe('GuestbookCtrl with a URL contains guestbook name', function() {
   var scope, ctrl, $httpBackend;
-  beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, $location) {
-    $location.path('/other');
+  beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, $routeParams) {
+    $routeParams.guestbookName = 'other';
     $httpBackend = _$httpBackend_;
     $httpBackend.expectGET('/rest/guestbook/other').
         respond({
@@ -242,4 +243,3 @@ describe('GuestbookCtrl with a URL contains guestbook name', function() {
         });
   })
 });
-

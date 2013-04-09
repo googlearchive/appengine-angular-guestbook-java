@@ -21,48 +21,8 @@
   <title>My AngularJS App</title>
   <link rel="stylesheet" href="css/app.css"/>
 </head>
-<body ng-controller="GuestbookCtrl">
-
-<span class="user_info">
-  <span ng-show="userServiceInfo" style="display: none;">
-    <span ng-show="userServiceInfo.currentUser">
-      Hi {{ userServiceInfo.currentUser.email }}
-      <a ng-href="{{ userServiceInfo.logoutUrl }}">Logout</a>
-    </span>
-    <span ng-hide="userServiceInfo.currentUser">
-      <a ng-href="{{ userServiceInfo.loginUrl }}">Login</a>
-    </span>
-  </span>
-  <span ng-hide="userServiceInfo">
-    <img src="/img/ajax-loader.gif">
-    Retrieving the user information...
-  </span>
-</span>
-
-<h2>A guestbook</h2>
-<div>
-  <p>
-  <form ng-submit="submit_form()">
-  Message:<br>
-  <textarea name="content" rows="5" cols="100" ng-model="content"></textarea><br>
-  Guestbook Name:
-  <input type="text" name="guestbookName" ng-model="guestbookName"><br>
-  <input type="submit" value="Submit" name="submit">
-  </form>
-  </p>
-</div>
-
-<span ng-hide="greetings != undefined">
-  <img src="/img/ajax-loader.gif">
-  Retrieving the data...
-</span>
-<ul ng-show="greetings" style="display: none;">
-  <li ng-repeat="greeting in greetings">
-    <span ng-bind-html="greeting.content | nl2br"></span>
-    at {{ greeting.date }} by {{ greeting.author }}
-  </li>
-</ul>
-
+<body>
+<div ng-view></div>
 <div id="footer">
     Angular guestbook app: v<span app-version></span>
     Copyright 2013 Google Inc.
@@ -71,7 +31,6 @@
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
 -->
 <script src="lib/angular/angular.js"></script>
-<script src="lib/angular/angular-cookies.js"></script>
 <script src="lib/angular/angular-sanitize.js"></script>
 <script src="js/app.js"></script>
 <script src="js/services.js"></script>

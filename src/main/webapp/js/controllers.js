@@ -16,48 +16,48 @@
 
 'use strict';
 
-var GuestbookCtrl = ['$scope', '$http', '$location', function ($scope, $http, $location) {
+var GuestbookCtrl = ['$scope', '$http', '$location', '$routeParams', '$route',
+  function ($scope, $http, $location, $routeParams, $route) {
+    console.log('GuestbookCtrl created.');
+    console.log('routeParams["guestbookName"]: ' + $routeParams['guestbookName']);
 
-  syncGuestbookWithPath(getGuestbookNameFromPath());
+    $scope.guestbookName = $routeParams['guestbookName'];
+    syncGuestbookWithPath($routeParams['guestbookName']);
 
-  function getGuestbookNameFromPath() {
-    var path = $location.path();
-    if (path == undefined || path == '') {
-      return 'default';
-    } else {
-      return path.replace(/^\//g, '');
+    function syncGuestbookWithPath(guestbookName) {
+      retrieveGuestbook(guestbookName);
     }
+
+    function retrieveGuestbook(guestbookName) {
+      $http.get('/rest/guestbook/' + encodeURIComponent(guestbookName))
+          .success(function(data) {
+            $scope.greetings = data.greetings;
+            $scope.userServiceInfo = data.userServiceInfo;
+            $scope.guestbookName = data.guestbookName;
+            $scope.currentGuestbookName = data.guestbookName;
+            $location.path(data.guestbookName);
+          })
+          .error(function(data, status) {
+            console.log('Retrieving a guestbook failed with the status code: ' + status);
+            console.log(data);
+          });
+    }
+
+    $scope.submit_form = function () {
+      $http.post(
+          '/rest/guestbook/' + encodeURIComponent($scope.guestbookName),
+          {'content': $scope.content})
+          .success(function (data) {
+            $scope.content = '';
+            $scope.greetings = data.greetings;
+            $scope.guestbookName = data.guestbookName;
+            $scope.currentGuestbookName = data.guestbookName;
+            $location.path(data.guestbookName);
+          })
+          .error(function(data, status) {
+            console.log('Posting a message failed with the status code: ' + status);
+            console.log(data);
+          });
+    };
   }
-
-  function syncGuestbookWithPath(guestbookName) {
-    $scope.guestbookName = guestbookName;
-    retrieveGuestbook($scope.guestbookName);
-  }
-
-  function retrieveGuestbook(guestbookName) {
-    $http.get('/rest/guestbook/' + encodeURIComponent(guestbookName))
-        .success(function (data) {
-          $scope.guestbookName = data.guestbookName;
-          $scope.greetings = data.greetings;
-          $scope.userServiceInfo = data.userServiceInfo;
-          updatePath($scope.guestbookName);
-        });
-  }
-
-  function updatePath(guestbookName) {
-    $location.path('/' + guestbookName).replace();
-  }
-
-  $scope.submit_form = function() {
-    $http.post(
-        '/rest/guestbook/' + encodeURIComponent($scope.guestbookName),
-        {'content': $scope.content})
-        .success(function (data) {
-          $scope.content = '';
-          $scope.guestbookName = data.guestbookName;
-          $scope.greetings = data.greetings;
-          updatePath($scope.guestbookName);
-        })
-  };
-
-}];
+];
