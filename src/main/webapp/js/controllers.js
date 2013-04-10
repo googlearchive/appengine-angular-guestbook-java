@@ -22,11 +22,7 @@ var GuestbookCtrl = ['$scope', '$http', '$location', '$routeParams', '$route',
     console.log('routeParams["guestbookName"]: ' + $routeParams['guestbookName']);
 
     $scope.guestbookName = $routeParams['guestbookName'];
-    syncGuestbookWithPath($routeParams['guestbookName']);
-
-    function syncGuestbookWithPath(guestbookName) {
-      retrieveGuestbook(guestbookName);
-    }
+    retrieveGuestbook($routeParams['guestbookName']);
 
     function retrieveGuestbook(guestbookName) {
       $http.get('/rest/guestbook/' + encodeURIComponent(guestbookName))

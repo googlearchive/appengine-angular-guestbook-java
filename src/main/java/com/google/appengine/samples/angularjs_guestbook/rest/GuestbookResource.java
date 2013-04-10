@@ -60,9 +60,8 @@ public class GuestbookResource {
   public GuestbookResponse getGuestbookData(
       @DefaultValue("default") @PathParam("guestbookName") final String guestbookName) throws
       Exception {
-    GuestbookResponse guestbookResponse = new GuestbookResponse(
-        guestbookName, getGreetings(guestbookName), UserServiceInfo.get("/"));
-    return guestbookResponse;
+    return new GuestbookResponse(guestbookName, getGreetings(guestbookName),
+        UserServiceInfo.get("/"));
   }
 
   @POST
@@ -87,9 +86,6 @@ public class GuestbookResource {
       greeting.setProperty("content", content);
       datastoreService.put(greeting);
     }
-
-    GuestbookResponse guestbookResponse = new GuestbookResponse(guestbookName,
-        getGreetings(guestbookName), null);
-    return guestbookResponse;
+    return new GuestbookResponse(guestbookName, getGreetings(guestbookName), null);
   }
 }
