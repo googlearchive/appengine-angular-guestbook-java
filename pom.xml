@@ -28,7 +28,7 @@
 
   <properties>
     <appengine.app.version>1</appengine.app.version>
-    <appengine.target.version>1.7.6</appengine.target.version>
+    <appengine.target.version>1.7.7</appengine.target.version>
     <jersey.version>1.17.1</jersey.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -133,7 +133,6 @@
         <artifactId>appengine-maven-plugin</artifactId>
         <version>${appengine.target.version}</version>
         <configuration>
-          <useJava7>true</useJava7>
           <jvmFlags>
             <jvmFlag>-Ddatastore.default_high_rep_job_policy_unapplied_job_pct=50</jvmFlag>
           </jvmFlags>
