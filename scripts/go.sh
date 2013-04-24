@@ -31,6 +31,14 @@ function quit() {
   exit 0
 }
 
+which karma >/dev/null
+if [ "$?" != "0" ]
+then
+  echo "Please install Karma using 'npm install -g karma'"
+  echo "See http://karma-runner.github.io/"
+  exit 1
+fi
+
 trap quit SIGINT
 
 XTERM_ARGS="-fa 'Mono' -fs 10"
@@ -63,7 +71,7 @@ pids="$$ $pids"
   --window-size=520,300 \
   --window-position=100,250 \
   --user-data-dir=.chrome-e2e \
-  http://localhost:7070/testacular/ &
+  http://localhost:7070/karma/ &
 pids="$$ $pids"
 
 "$CHROME" $CHROME_ARGS \

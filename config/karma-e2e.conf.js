@@ -30,7 +30,7 @@ browsers = [
 singleRun = false;
 
 // Use sub directory since we want to use '/'.
-urlRoot = '/testacular/';
+urlRoot = '/karma/';
 
 proxies = {
   '/': 'http://localhost:8080/'
