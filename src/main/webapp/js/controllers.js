@@ -17,9 +17,7 @@
 'use strict';
 
 var GuestbookCtrl = ['$scope', '$http', '$location', '$routeParams', '$route',
-  function ($scope, $http, $location, $routeParams, $route) {
-    console.log('GuestbookCtrl created.');
-    console.log('routeParams["guestbookName"]: ' + $routeParams['guestbookName']);
+  function ($scope, $http, $location, $routeParams) {
 
     $scope.guestbookName = $routeParams['guestbookName'];
     retrieveGuestbook($routeParams['guestbookName']);

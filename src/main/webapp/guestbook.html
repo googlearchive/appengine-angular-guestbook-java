@@ -1,5 +1,5 @@
 <span class="user_info">
-  <span ng-show="userServiceInfo" style="display: none;">
+  <span ng-show="userServiceInfo">
     <span ng-show="userServiceInfo.currentUser">
       Hi {{ userServiceInfo.currentUser.email }}
       <a ng-href="{{ userServiceInfo.logoutUrl }}">Logout</a>
@@ -7,6 +7,7 @@
     <span ng-hide="userServiceInfo.currentUser">
       <a ng-href="{{ userServiceInfo.loginUrl }}">Login</a>
     </span>
+
   </span>
   <span ng-hide="userServiceInfo">
     <img src="/img/ajax-loader.gif">
@@ -31,7 +32,7 @@
   <img src="/img/ajax-loader.gif">
   Retrieving the data...
 </span>
-<ul ng-show="greetings" style="display: none;">
+<ul ng-show="greetings">
   <li ng-repeat="greeting in greetings">
     <span ng-bind-html="greeting.content | nl2br"></span>
     at {{ greeting.date }} by {{ greeting.author }}

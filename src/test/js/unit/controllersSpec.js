@@ -19,9 +19,10 @@
 /* jasmine specs for controllers go here */
 
 describe('GuestbookCtrl initialization', function() {
-  var scope, ctrl, $httpBackend;
-  beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, $routeParams) {
-    $routeParams.guestbookName = 'default';
+  var scope, $httpBackend, ctrl;
+  var routeParams = {};
+  beforeEach(module('guestbook'));
+  beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
     $httpBackend = _$httpBackend_;
     $httpBackend.expectGET('/rest/guestbook/default').
         respond(200, {
@@ -48,72 +49,49 @@ describe('GuestbookCtrl initialization', function() {
             'logoutUrl': '/_ah/logout?continue=%2F'
           }
         });
-        $httpBackend.whenPOST(
-            '/rest/guestbook/other',
-            {'content': 'A new message on the other guestbook'})
-        .respond(200, {
-          'greetings': [
-            {
-              'content': 'A new message on the other guestbook',
-              'date': 'Apr 6, 2013 7:28:22 PM',
-              'author': 'test@example.com'
-            },
-            {
-              'content': 'a second message on the other guestbook',
-              'date': 'Apr 6, 2013 12:00:00 PM',
-              'author': 'another@example.com'
-            }
-          ],
-          'guestbookName': 'other',
-          'userServiceInfo': {
-            'currentUser': {
-              'authDomain': 'gmail.com',
-              'email': 'test@example.com',
-              'userid': '18580476422013912411'
-            },
-            'loginUrl': '/_ah/login?continue=%2F',
-            'logoutUrl': '/_ah/logout?continue=%2F'
-          }
-        });
+    $httpBackend.whenGET('guestbook.html').respond(200, '');
     scope = $rootScope.$new();
-    ctrl = $controller(GuestbookCtrl, {$scope: scope});
+    routeParams.guestbookName = 'default';
+    ctrl = $controller(GuestbookCtrl, {$scope: scope, $routeParams: routeParams});
   }));
 
-  it('should create "greetings", "guestbookName", and "userServiceInfo" models', function() {
-    expect(scope.greetings).toBeUndefined();
-    expect(scope.userServiceInfo).toBeUndefined();
-    expect(scope.guestbookName).toEqual('default');
-    $httpBackend.flush();
-    expect(scope.greetings).toEqual([
-      {
-        'content': 'a message on the default guestbook',
-        'date': 'Apr 6, 2013 7:28:22 PM',
-        'author': 'test@example.com'
-      },
-      {
-        'content': 'a second message on the default guestbook',
-        'date': 'Apr 6, 2013 12:00:00 PM',
-        'author': 'another@example.com'
-      }
-    ]);
-    expect(scope.guestbookName).toEqual('default');
-    expect(scope.userServiceInfo).toEqual(
-        {
-          currentUser: {
-            authDomain: 'gmail.com',
-            email: 'test@example.com',
-            userid: '18580476422013912411'
+  it('should create "greetings", "guestbookName", and "userServiceInfo" models',
+      function() {
+        expect(scope.greetings).toBeUndefined();
+        expect(scope.userServiceInfo).toBeUndefined();
+        $httpBackend.flush();
+        expect(scope.greetings).toEqual([
+          {
+            'content': 'a message on the default guestbook',
+            'date': 'Apr 6, 2013 7:28:22 PM',
+            'author': 'test@example.com'
           },
-          loginUrl: '/_ah/login?continue=%2F',
-          logoutUrl: '/_ah/logout?continue=%2F'
-        });
-  })
+          {
+            'content': 'a second message on the default guestbook',
+            'date': 'Apr 6, 2013 12:00:00 PM',
+            'author': 'another@example.com'
+          }
+        ]);
+        expect(scope.guestbookName).toEqual('default');
+        expect(scope.userServiceInfo).toEqual(
+            {
+              currentUser: {
+                authDomain: 'gmail.com',
+                email: 'test@example.com',
+                userid: '18580476422013912411'
+              },
+              loginUrl: '/_ah/login?continue=%2F',
+              logoutUrl: '/_ah/logout?continue=%2F'
+            });
+      });
 });
 
 describe('GuestbookCtrl submit_form', function() {
   var scope, ctrl, $httpBackend;
-  beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, $routeParams) {
-    $routeParams.guestbookName = 'default';
+  var routeParams = {};
+  beforeEach(module('guestbook'));
+  beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+    routeParams.guestbookName = 'default';
     $httpBackend = _$httpBackend_;
     $httpBackend.whenGET('/rest/guestbook/default').
         respond(200, {
@@ -135,8 +113,9 @@ describe('GuestbookCtrl submit_form', function() {
             'logoutUrl': '/_ah/logout?continue=%2F'
           }
         });
+    $httpBackend.whenGET('guestbook.html').respond(200, '');
     scope = $rootScope.$new();
-    ctrl = $controller(GuestbookCtrl, {$scope: scope});
+    ctrl = $controller(GuestbookCtrl, {$scope: scope, $routeParams: routeParams});
   }));
 
   it('should post to the "/rest/guestbook/other"', function() {
@@ -182,8 +161,10 @@ describe('GuestbookCtrl submit_form', function() {
 
 describe('GuestbookCtrl with a URL contains guestbook name', function() {
   var scope, ctrl, $httpBackend;
-  beforeEach(inject(function(_$httpBackend_, $rootScope, $controller, $routeParams) {
-    $routeParams.guestbookName = 'other';
+  var routeParams = {};
+  beforeEach(module('guestbook'));
+  beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+    routeParams.guestbookName = 'other';
     $httpBackend = _$httpBackend_;
     $httpBackend.expectGET('/rest/guestbook/other').
         respond({
@@ -210,8 +191,9 @@ describe('GuestbookCtrl with a URL contains guestbook name', function() {
             'logoutUrl': '/_ah/logout?continue=%2F'
           }
         });
+    $httpBackend.whenGET('guestbook.html').respond(200, '');
     scope = $rootScope.$new();
-    ctrl = $controller(GuestbookCtrl, {$scope: scope});
+    ctrl = $controller(GuestbookCtrl, {$scope: scope, $routeParams: routeParams});
   }));
 
   it('should retrieve data for "other" guestbook if $location.path() is "/other"', function() {

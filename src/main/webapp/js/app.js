@@ -21,7 +21,8 @@ angular.module('guestbook', [
   'guestbook.filters',
   'guestbook.services',
   'guestbook.directives',
-  'ngSanitize'
+  'ngSanitize',
+  'ngRoute'
 ])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider

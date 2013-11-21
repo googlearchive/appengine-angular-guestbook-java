@@ -1,36 +1,41 @@
-basePath = '../';
+module.exports = function(config){
+  config.set({
+    basePath : '../',
 
-files = [
-    JASMINE,
-    JASMINE_ADAPTER,
-    'angular-seed/app/lib/angular/angular.js',
-    'angular-seed/app/lib/angular/angular-*.js',
-    'angular-seed/test/lib/angular/angular-mocks.js',
-    'src/main/webapp/js/**/*.js',
-    'src/test/js/unit/**/*.js'
-];
+    files : [
+      'angular-seed/app/lib/angular/angular.js',
+      'angular-seed/app/lib/angular/angular-*.js',
+      'angular-seed/test/lib/angular/angular-mocks.js',
+      'src/main/webapp/js/**/*.js',
+      'src/test/js/unit/**/*.js'
+    ],
 
-// web server port
-port = 6060;
+    port : 6060,
 
-// cli runner port
-runnerPort = 6100;
+    runnerPort : 6100,
 
-autoWatch = true;
+    exclude : [
+      'angular-seed/app/lib/angular/angular-loader.js',
+      'angular-seed/app/lib/angular/*.min.js',
+      'angular-seed/app/lib/angular/angular-scenario.js'
+    ],
 
-// Start these browsers, currently available:
-// - Chrome
-// - ChromeCanary
-// - Firefox
-// - Opera
-// - Safari (only Mac)
-// - PhantomJS
-// - IE (only Windows)
-browsers = [
-  'Chrome'
-];
+    autoWatch : true,
 
-junitReporter = {
-    outputFile: 'test_out/unit.xml',
-    suite: 'unit'
-};
+    frameworks: ['jasmine'],
+
+    browsers : ['Chrome'],
+
+    plugins : [
+      'karma-junit-reporter',
+      'karma-chrome-launcher',
+      'karma-firefox-launcher',
+      'karma-jasmine'
+    ],
+
+    junitReporter : {
+      outputFile: 'test_out/unit.xml',
+      suite: 'unit'
+    }
+
+})}

@@ -1,42 +1,42 @@
-basePath = '../';
+module.exports = function(config){
+  config.set({
 
-files = [
-    ANGULAR_SCENARIO,
-    ANGULAR_SCENARIO_ADAPTER,
-    'src/test/js/e2e/**/*.js',
-    'src/main/webapp/js/**/*.js',
-];
+    basePath : '../',
 
-// web server port
-port = 7070;
+    files : [
+      'src/test/js/e2e/**/*.js',
+      'src/main/webapp/js/**/*.js',
+    ],
 
-// cli runner port
-runnerPort = 7100;
+    port : 7070,
 
-autoWatch = true;
+    runnerPort : 7100,
 
-// Start these browsers, currently available:
-// - Chrome
-// - ChromeCanary
-// - Firefox
-// - Opera
-// - Safari (only Mac)
-// - PhantomJS
-// - IE (only Windows)
-browsers = [
-  'Chrome'
-];
+    autoWatch : false,
 
-singleRun = false;
+    browsers : ['Chrome'],
 
-// Use sub directory since we want to use '/'.
-urlRoot = '/karma/';
+    frameworks: ['ng-scenario'],
 
-proxies = {
-  '/': 'http://localhost:8080/'
-};
+    singleRun : false,
 
-junitReporter = {
-    outputFile: 'test_out/e2e.xml',
-    suite: 'e2e'
-};
+    proxies : {
+      '/': 'http://localhost:8080/'
+    },
+
+    urlRoot : '/karma/',
+
+    plugins : [
+            'karma-junit-reporter',
+            'karma-chrome-launcher',
+            'karma-firefox-launcher',
+            'karma-jasmine',
+            'karma-ng-scenario'
+            ],
+
+    junitReporter : {
+      outputFile: 'test_out/e2e.xml',
+      suite: 'e2e'
+    }
+
+})}
