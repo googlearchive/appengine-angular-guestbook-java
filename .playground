@@ -1,0 +1,31 @@
+{
+  "project_name" : "AngularJS Guestbook (Java)",
+  "project_description" : "Yet another guestbook sample with angularjs and App Engine Java",
+  "show_files": [
+    "pom.xml",
+    "src/main/java/com/google/appengine/samples/angularjs_guestbook/config/Resources.java",
+    "src/main/java/com/google/appengine/samples/angularjs_guestbook/domain/Greeting.java",
+    "src/main/java/com/google/appengine/samples/angularjs_guestbook/domain/GuestbookResponse.java",
+    "src/main/java/com/google/appengine/samples/angularjs_guestbook/domain/UserServiceInfo.java",
+    "src/main/java/com/google/appengine/samples/angularjs_guestbook/rest/GsonMessageBodyHandler.java",
+    "src/main/java/com/google/appengine/samples/angularjs_guestbook/rest/GuestbookResource.java",
+    "src/main/webapp/WEB-INF/appengine-web.xml",
+    "src/main/webapp/WEB-INF/web.xml",
+    "src/main/webapp/css/app.css",
+    "src/main/webapp/guestbook.html",
+    "src/main/webapp/img/ajax-loader.gif",
+    "src/main/webapp/index.html",
+    "src/main/webapp/js/app.js",
+    "src/main/webapp/js/controllers.js",
+    "src/main/webapp/js/directives.js",
+    "src/main/webapp/js/filters.js",
+    "src/main/webapp/js/services.js",
+    "src/test/java/com/google/appengine/samples/angularjs_guestbook/GuestbookResourceTest.java",
+    "src/test/java/com/google/appengine/samples/angularjs_guestbook/TestUtil.java",
+    "src/test/js/e2e/scenarios.js",
+    "src/test/js/unit/controllersSpec.js",
+    "src/test/js/unit/directivesSpec.js",
+    "src/test/js/unit/filtersSpec.js",
+    "src/test/js/unit/servicesSpec.js"
+  ]
+}
