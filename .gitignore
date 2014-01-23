@@ -3,6 +3,7 @@
 /.classpath
 /.project
 /.settings
+/.metadata
 /test_out/
 /.chrome-app/
 /.chrome-e2e/

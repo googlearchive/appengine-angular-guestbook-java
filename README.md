@@ -1,7 +1,7 @@
 appengine-angular-guestbook-java
 ================================
 
-Yet another guestbook sample with angularjs, jersey, and App Engine
+A simple guestbook app using angularjs, jersey, and App Engine
 Java. You can build this project using Maven.
 
 Author: Takashi Matsuo <tmatsuo@google.com>

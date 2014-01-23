@@ -1,6 +1,6 @@
 {
   "project_name" : "AngularJS Guestbook (Java)",
-  "project_description" : "Yet another guestbook sample with angularjs and App Engine Java",
+  "project_description" : "A guestbook app using angularjs and App Engine Java",
   "show_files": [
     "pom.xml",
     "src/main/java/com/google/appengine/samples/angularjs_guestbook/config/Resources.java",
